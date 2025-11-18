@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(''); 
+  background-size: cover; /* venyttää kuvan koko näkymän kokoiseksi */
+  background-repeat: no-repeat; /* ei toista kuvaa */
+  background-attachment: fixed; /* pitää kuvan paikallaan vieritettäessä */
+  background-position: center; /* keskittää kuvan */
