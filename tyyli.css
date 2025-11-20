@@ -11,6 +11,23 @@ body {
   background-position: center; /* keskittää kuvan */
 }
 
+/* Lumisade */
+#snow-canvas {
+    position: fixed;
+    inset: 0;          /* top:0; right:0; bottom:0; left:0 */
+    width: 100%;
+    height: 100%;
+    z-index: 0;        /* TAUSTA */
+    pointer-events: none; /* ei estä klikkauksia */
+}
+
+/* Varmistetaan, että sisältö on lumisateen päällä */
+header,
+main {
+    position: relative;
+    z-index: 1;
+}
+
 /* h1 */
 h1 {
     position: static;

@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <canvas id = 'snow-canvas'></canvas>
     <header>
     <h1> Joulukalenteri 2025 </h1>
     </header>
@@ -97,6 +98,94 @@
     </div>
 
     </main>
+<script>
+    const canvas = document.getElementById('snow-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    // Päivitä canvas-koon kun ikkunan koko muuttuu
+    window.addEventListener('resize', () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    });
+
+    // Lumisateen säädöt
+    const FLAKE_COUNT = 150;
+    const SPEED_MIN = 0.5;
+    const SPEED_MAX = 2;
+    const SIZE_MIN = 1;
+    const SIZE_MAX = 4;
+    const WIND_STRENGTH = 0.5;
+
+    const flakes = [];
+
+    // Satunnaisluku väliltä [min, max)
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    // Luodaan yksi hiutale
+    function createFlake() {
+        return {
+            x: random(0, width),
+            y: random(-height, 0),
+            radius: random(SIZE_MIN, SIZE_MAX),
+            speed: random(SPEED_MIN, SPEED_MAX),          // putoamisnopeus
+            drift: random(-WIND_STRENGTH, WIND_STRENGTH), // sivuliike
+            opacity: random(0.4, 1),
+        };
+    }
+
+    // Luodaan kaikki hiutaleet
+    function initFlakes() {
+        for (let i = 0; i < FLAKE_COUNT; i++) {
+            flakes.push(createFlake());
+        }
+    }
+
+    // Piirretään ja liikutetaan hiutaleita
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.beginPath();
+
+        for (const flake of flakes) {
+            ctx.globalAlpha = flake.opacity;
+            ctx.moveTo(flake.x, flake.y);
+            ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+
+            // päivitetään sijainti
+            flake.y += flake.speed;
+            flake.x += flake.drift + Math.sin(flake.y * 0.01) * 0.2;
+
+            // jos tippuu alareunan ohi -> takaisin ylös
+            if (flake.y > height + flake.radius) {
+                flake.y = -flake.radius;
+                flake.x = random(0, width);
+            }
+
+            // jos menee sivulta ohi -> toiselle puolelle
+            if (flake.x > width + flake.radius) flake.x = -flake.radius;
+            if (flake.x < -flake.radius) flake.x = width + flake.radius;
+        }
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        requestAnimationFrame(draw);
+    }
+
+    initFlakes();
+    draw();
+</script>
 
 </body>
 
