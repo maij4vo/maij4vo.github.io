@@ -16,11 +16,16 @@
 
     <main>
 
-    <!-- Tänne joulukuusi -->
+    <!-- Tänne joulukuusi (Lisäsin lahjapaketin kuusen juureen) --> 
     <div class = 'kuusi-container'>
         <img src = 'kuusi.png' alt = 'joulukuusi' class = 'kuusi' />
+         <img src="lahjapaketti.png" alt="Lahjapaketti" id="lahjapaketti"
+         style="position:absolute; left:59%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
     </div> 
-    
+
+     <!-- lahjapaketti-kuvan jälkeen: -->
+<img src="karkkikeppi.png" alt="Koriste" id="uusi-koriste" style="position:absolute; top:60%; left:40%; display:none; cursor:grab; width:50px;">
+
     <!--Tänne kaikki 24kpl koristeita-->
     <div class = 'koristeet'> <!-- yhteinen ryhmä koristeille, jonka sisässä on jokaiselle oma ryhmä-->
         <div class = 'koriste1'>
@@ -185,7 +190,42 @@
 
     initFlakes();
     draw();
-</script>
+
+const lahjapaketti = document.getElementById('lahjapaketti');
+const koriste = document.getElementById('uusi-koriste');
+const kuusiContainer = document.querySelector('.kuusi-container');
+
+lahjapaketti.addEventListener('click', () => {
+    koriste.style.display = 'block';
+    // koristeen lähtöpaikka kuusen päällä
+    koriste.style.left = '45%';
+    koriste.style.top = '20%';
+});
+
+let isDragging = false;
+
+koriste.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    document.body.style.userSelect = 'none';
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    // suhteutetaan kuusen containerin sijaintiin!
+    const rect = kuusiContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left - koriste.width / 2;
+    const y = e.clientY - rect.top - koriste.height / 2;
+    koriste.style.left = x + 'px';
+    koriste.style.top = y + 'px';
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    document.body.style.userSelect = '';
+    // koriste jää siihen mihin sen raahaat kuusen päällä
+});
+
+ </script>
 
 </body>
 
