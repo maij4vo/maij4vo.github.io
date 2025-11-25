@@ -40,22 +40,6 @@
        
         </div> 
 
-        const lahjapaketit = document.querySelectorAll(".lahjapaketti");
-        const koriste = document.getElementById("uusi-koriste");
-        const kuusiContainer = document.querySelector(".kuusi-container");
-
-        lahjapaketit.forEach(paketti => {
-    paketti.addEventListener('click', () => {
-        <!-- piilotetaan juuri klikattu paketti-->
-        paketti.style.display = 'none';
-
-        <!--näytetään koriste-->
-        koriste.style.display = 'block';
-        koriste.style.left = '45%';
-        koriste.style.top = '20%';
-    });
-});
-
      <!-- lahjapaketti-kuvan jälkeen: -->
 <img src="karkkikeppi.png" alt="Koriste" id="uusi-koriste" style="position:absolute; top:60%; left:40%; display:none; cursor:grab; width:80px;">
 
@@ -224,16 +208,9 @@
     initFlakes();
     draw();
 
-const lahjapaketti = document.getElementById('lahjapaketti');
-const koriste = document.getElementById('uusi-koriste');
-const kuusiContainer = document.querySelector('.kuusi-container');
-
-lahjapaketti.addEventListener('click', () => {
-    koriste.style.display = 'block';
-    // koristeen lähtöpaikka kuusen päällä
-    koriste.style.left = '45%';
-    koriste.style.top = '20%';
-});
+        const lahjapaketit = document.querySelectorAll(".lahjapaketti");
+        const koriste = document.getElementById("uusi-koriste");
+        const kuusiContainer = document.querySelector(".kuusi-container");
 
 let isDragging = false;
 
@@ -256,6 +233,18 @@ document.addEventListener('mouseup', () => {
     isDragging = false;
     document.body.style.userSelect = '';
     // koriste jää siihen mihin sen raahaat kuusen päällä
+});
+
+        lahjapaketit.forEach(paketti => {
+    paketti.addEventListener('click', () => {
+        //piilotetaan juuri klikattu paketti
+        paketti.style.display = 'none';
+
+        //näytetään koriste
+        koriste.style.display = 'block';
+        koriste.style.left = '45%';
+        koriste.style.top = '20%';
+    });
 });
 
  </script>
