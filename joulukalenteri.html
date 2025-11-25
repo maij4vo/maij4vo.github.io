@@ -34,21 +34,24 @@
          <img src="valkosini.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:27%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
         <img src="Punasiniora.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:21%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-       <img src="keltasini.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:14%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-       
+         style="position:absolute; left:21%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"
+         data-koriste=">
+        <img src="keltasini.png" alt="Lahjapaketti" class="lahjapaketti"
+         style="position:absolute; left:14%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"
+         data-koriste="koristepallo.png">
+        
         </div> 
 
      <!-- lahjapaketti-kuvan jälkeen: -->
-<img src="karkkikeppi.png" alt="Koriste" id="uusi-koriste" style="position:absolute; top:60%; left:40%; display:none; cursor:grab; width:80px;">
+        <img id="uusi-koriste" style="position:absolute; top:60%; left:40%; display:none; cursor:grab; width:80px;">
 
-    <!--Tänne kaikki 24kpl koristeita-->
+     <!--Tänne kaikki 24kpl koristeita-->
     <div class = 'koristeet'> <!-- yhteinen ryhmä koristeille, jonka sisässä on jokaiselle oma ryhmä-->
         <div class = 'koriste1'>
         </div>  
 
         <div class = 'koriste2'>
+        
         </div>
 
         <div class = 'koriste3'>
@@ -209,7 +212,7 @@
     draw();
 
         const lahjapaketit = document.querySelectorAll(".lahjapaketti");
-        const koriste = document.getElementById("uusi-koriste");
+        const koriste = document.getElementById("uusi-koriste")
         const kuusiContainer = document.querySelector(".kuusi-container");
 
 let isDragging = false;
@@ -234,18 +237,29 @@ document.addEventListener('mouseup', () => {
     document.body.style.userSelect = '';
     // koriste jää siihen mihin sen raahaat kuusen päällä
 });
-
+      //paketin piilottaminen
         lahjapaketit.forEach(paketti => {
     paketti.addEventListener('click', () => {
         //piilotetaan juuri klikattu paketti
         paketti.style.display = 'none';
 
-        //näytetään koriste
+     // haetaan paketin oma koristekuva
+        const kuva = paketti.dataset.koriste;
+
+        // vaihdetaan koriste-elementin kuva
+        koriste.src = kuva;
         koriste.style.display = 'block';
+
+        // asetetaan lähtöpaikka
         koriste.style.left = '45%';
         koriste.style.top = '20%';
     });
 });
+
+
+
+
+ 
 
  </script>
 
