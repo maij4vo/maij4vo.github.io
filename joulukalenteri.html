@@ -19,26 +19,42 @@
     <!-- Tänne joulukuusi (Lisäsin lahjapaketin kuusen juureen) --> 
     <div class = 'kuusi-container'>
         <img src = 'kuusi.png' alt = 'joulukuusi' class = 'kuusi' />
-         <img src="lahjapaketti.png" alt="Lahjapaketti" id="lahjapaketti"
+         <img src="lahjapaketti.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:59%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-        <img src="sinipuna.png" alt="Lahjapaketti" id="lahjapaketti"
+        <img src="sinipuna.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left: 40%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-         <img src="lahjapaketti.png" alt="Lahjapaketti" id="lahjapaketti"
+         <img src="lahjapaketti.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:47%; bottom: 1px; width:160px; cursor:pointer; z-index:1;">
-         <img src="valkosini.png" alt="Lahjapaketti" id="lahjapaketti"
+         <img src="valkosini.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:65%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-        <img src="kelttu.png" alt="Lahjapaketti" id="lahjapaketti"
+        <img src="kelttu.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:52%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-         <img src="kelttu.png" alt="Lahjapaketti" id="lahjapaketti"
+         <img src="kelttu.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:33%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-         <img src="valkosini.png" alt="Lahjapaketti" id="lahjapaketti"
+         <img src="valkosini.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:27%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-        <img src="Punasiniora.png" alt="Lahjapaketti" id="lahjapaketti"
+        <img src="Punasiniora.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:21%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
-       <img src="keltasini.png" alt="Lahjapaketti" id="lahjapaketti"
+       <img src="keltasini.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:14%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
        
         </div> 
+
+        const lahjapaketit = document.querySelectorAll(".lahjapaketti");
+        const koriste = document.getElementById("uusi-koriste");
+        const kuusiContainer = document.querySelector(".kuusi-container");
+
+        lahjapaketit.forEach(paketti => {
+    paketti.addEventListener('click', () => {
+        <!-- piilotetaan juuri klikattu paketti-->
+        paketti.style.display = 'none';
+
+        <!--näytetään koriste-->
+        koriste.style.display = 'block';
+        koriste.style.left = '45%';
+        koriste.style.top = '20%';
+    });
+});
 
      <!-- lahjapaketti-kuvan jälkeen: -->
 <img src="karkkikeppi.png" alt="Koriste" id="uusi-koriste" style="position:absolute; top:60%; left:40%; display:none; cursor:grab; width:80px;">
