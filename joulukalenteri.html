@@ -20,30 +20,29 @@
     <div class = 'kuusi-container'>
         <img src = 'kuusi.png' alt = 'joulukuusi' class = 'kuusi' />
          <img src="lahjapaketti.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:59%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
+         style="position:absolute; left:59%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"data-koriste="karkkikeppi.png">
         <img src="sinipuna.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left: 40%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
+         style="position:absolute; left: 40%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"data-koriste="karkkikeppi.png">
          <img src="lahjapaketti.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:47%; bottom: 1px; width:160px; cursor:pointer; z-index:1;">
+         style="position:absolute; left:47%; bottom: 1px; width:160px; cursor:pointer; z-index:1;"data-koriste="karkkikeppi.png">
          <img src="valkosini.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:65%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
+         style="position:absolute; left:65%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"data-koriste="karkkikeppi.png">
         <img src="kelttu.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:52%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
+         style="position:absolute; left:52%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"data-koriste="karkkikeppi.png">
          <img src="kelttu.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:33%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
+         style="position:absolute; left:33%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"data-koriste="karkkikeppi.png">
          <img src="valkosini.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:27%; bottom: 1px; width:160px; cursor:pointer; z-index:2;">
+         style="position:absolute; left:27%; bottom: 1px; width:160px; cursor:pointer; z-index:2;" data-koriste="karkkikeppi.png">
         <img src="Punasiniora.png" alt="Lahjapaketti" class="lahjapaketti"
-         style="position:absolute; left:21%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"
-         data-koriste=">
+         style="position:absolute; left:21%; bottom: 1px; width:160px; cursor:pointer; z-index:2;" data-koriste="karkkikeppi.png">
         <img src="keltasini.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left:14%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"
-         data-koriste="koristepallo.png">
+         data-koriste="karkkikeppi.png">
         
         </div> 
 
      <!-- lahjapaketti-kuvan jälkeen: -->
-        <img id="uusi-koriste" style="position:absolute; top:60%; left:40%; display:none; cursor:grab; width:80px;">
+       
 
      <!--Tänne kaikki 24kpl koristeita-->
     <div class = 'koristeet'> <!-- yhteinen ryhmä koristeille, jonka sisässä on jokaiselle oma ryhmä-->
@@ -212,48 +211,56 @@
     draw();
 
         const lahjapaketit = document.querySelectorAll(".lahjapaketti");
-        const koriste = document.getElementById("uusi-koriste")
         const kuusiContainer = document.querySelector(".kuusi-container");
 
-let isDragging = false;
 
-koriste.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    document.body.style.userSelect = 'none';
-});
 
-document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    // suhteutetaan kuusen containerin sijaintiin!
-    const rect = kuusiContainer.getBoundingClientRect();
-    const x = e.clientX - rect.left - koriste.width / 2;
-    const y = e.clientY - rect.top - koriste.height / 2;
-    koriste.style.left = x + 'px';
-    koriste.style.top = y + 'px';
-});
+  
+lahjapaketit.forEach(paketti => {
+  paketti.addEventListener('click', () => {
+    // piilota klikattu paketti
+    paketti.style.display = 'none';
 
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-    document.body.style.userSelect = '';
-    // koriste jää siihen mihin sen raahaat kuusen päällä
-});
-      //paketin piilottaminen
-        lahjapaketit.forEach(paketti => {
-    paketti.addEventListener('click', () => {
-        //piilotetaan juuri klikattu paketti
-        paketti.style.display = 'none';
+    // hae kuvan polku paketista
+    const kuva = paketti.dataset.koriste;
+    if (!kuva) return;
 
-     // haetaan paketin oma koristekuva
-        const kuva = paketti.dataset.koriste;
+    // luo uusi koristekuva
+    const uusiKoriste = document.createElement('img');
+    uusiKoriste.src = kuva;
+    uusiKoriste.alt = 'Koriste';
+    uusiKoriste.style.position = 'absolute';
+    uusiKoriste.style.left = '45%';
+    uusiKoriste.style.top = '20%';
+    uusiKoriste.style.width = '80px';
+    uusiKoriste.style.cursor = 'grab';
+    uusiKoriste.style.zIndex = '10';
 
-        // vaihdetaan koriste-elementin kuva
-        koriste.src = kuva;
-        koriste.style.display = 'block';
+    // lisää kuusen containeriin
+    kuusiContainer.appendChild(uusiKoriste);
 
-        // asetetaan lähtöpaikka
-        koriste.style.left = '45%';
-        koriste.style.top = '20%';
+    // raahaus tälle koristeelle
+    let dragging = false;
+
+    uusiKoriste.addEventListener('mousedown', () => {
+      dragging = true;
+      document.body.style.userSelect = 'none';
     });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const rect = kuusiContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left - (uusiKoriste.width / 2);
+      const y = e.clientY - rect.top  - (uusiKoriste.height / 2);
+      uusiKoriste.style.left = x + 'px';
+      uusiKoriste.style.top  = y + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      dragging = false;
+      document.body.style.userSelect = '';
+    });
+  });
 });
 
 
