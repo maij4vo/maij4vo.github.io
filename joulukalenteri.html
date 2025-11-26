@@ -188,6 +188,39 @@
     const lahjapaketit = document.querySelectorAll(".lahjapaketti");
     const kuusiContainer = document.querySelector(".kuusi-container");
 
+    const kuusi = document.querySelector('.kuusi');
+const tahti = document.querySelector('.tahti');
+
+function positionTahti() {
+  if (!kuusi || !tahti) return;
+
+  // Hae kuusen containerin ja kuusen sijainnit
+  const containerRect = kuusiContainer.getBoundingClientRect();
+  const kuusiRect = kuusi.getBoundingClientRect();
+
+  // Tähden leveys suhteessa kuusen leveyteen
+  const starW = Math.round(kuusiRect.width * 0.12);
+  tahti.style.width = starW + 'px';
+
+  // Laske kuusen keskikohta containerin sisällä
+  const centerX = kuusiRect.left + kuusiRect.width / 2 - containerRect.left;
+  const x = Math.round(centerX - starW / 2);
+
+  // Laske kuusen yläreuna containerin sisällä
+  const tipY = kuusiRect.top - containerRect.top;
+  const y = Math.round(tipY - starW * 0.28); // hienosäätö: nosta hieman latvan yläpuolelle
+
+  tahti.style.left = x + 'px';
+  tahti.style.top = y + 'px';
+}
+
+// sijoita tähti kun kuusi latautuu tai ikkuna muuttuu
+if (kuusi) {
+  if (kuusi.complete) positionTahti();
+  else kuusi.addEventListener('load', positionTahti);
+}
+window.addEventListener('resize', positionTahti);
+
     // yhden paketin avaus per päivä
     // const tanaan = new Date();
     // const paiva = tanaan.getDate();
@@ -197,9 +230,9 @@
 
     function tarkistaKaikkiAvattu() {
   const kaikkiPiilotettu = [...lahjapaketit].every(p => p.style.display === 'none');
-  if (kaikkiPiilotettu) {
-    const tahti = document.querySelector('.tahti');
-    if (tahti) tahti.style.display = 'block';
+  if (kaikkiPiilotettu && tahti) {
+    positionTahti(); // sijoita tähti oikein
+    tahti.classList.add('nakyva'); // näytä animaatiolla
   }
 }
     lahjapaketit.forEach(paketti => {

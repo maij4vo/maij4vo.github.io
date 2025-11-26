@@ -68,5 +68,15 @@ h1 {
 .tahti {
   position: absolute;
   z-index: 11;
-  display: none; /* piilotetaan aluksi */
+  opacity: 0;
+  transform: translateY(1px, -20%) scale(0.8);
+  transition:
+    opacity 1.2s ease-in,
+    transform 1.2s ease-in;
+  pointer-events: none;
+}
+
+.tahti.nakyva {
+  opacity: 1;
+  transform: translateY(1px, -20%) scale(1.2);
 }
