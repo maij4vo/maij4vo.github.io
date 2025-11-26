@@ -65,5 +65,11 @@ h1 {
     text-align: center;
 }
 
-
-
+.tahti {
+  position: absolute;
+  top: 5%; /* säädä tarvittaessa */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px; /* säädä kokoa tarpeen mukaan */
+  z-index: 11;
+}

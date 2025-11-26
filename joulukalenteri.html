@@ -19,6 +19,7 @@
     <!-- Tänne joulukuusi (Lisäsin lahjapaketin kuusen juureen) --> 
     <div class = 'kuusi-container'>
         <img src = 'kuusi.png' alt = 'joulukuusi' class = 'kuusi' />
+        <img src="tahti.png" alt="Joulutähti" class="tahti" />
         <!--1--> <img src="lahjapaketti.png" alt="Lahjapaketti" class="lahjapaketti"
          style="position:absolute; left: 96.6%; bottom: 1px; width:160px; cursor:pointer; z-index:2;"data-koriste="koristepallo1.png">
 
@@ -93,7 +94,7 @@
         </div> 
 
         <!-- 24 jälkeen tulis tähti ja valot???????-->
-         
+
 
     </main>
 <script>
@@ -244,6 +245,16 @@
     document.addEventListener('mouseup', () => {
       dragging = false;
       document.body.style.userSelect = '';
+
+      function tarkistaKaikkiAvattu() {
+  const kaikkiPiilotettu = [...lahjapaketit].every(p => p.style.display === 'none');
+  if (kaikkiPiilotettu) {
+    const tahti = document.querySelector('.tahti');
+    if (tahti) tahti.style.display = 'block';
+  }
+}
+
+      tarkistaKaikkiAvattu();
     });
   });
 });
