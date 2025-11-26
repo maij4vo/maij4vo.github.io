@@ -67,10 +67,6 @@ h1 {
 
 .tahti {
   position: absolute;
-  top: 5%; /* säädä tarvittaessa */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
   z-index: 11;
   display: none; /* piilotetaan aluksi */
 }
