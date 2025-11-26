@@ -35,7 +35,11 @@ h1 {
     text-align: center;
     margin-top: 4px;
     padding-top: 10px;
-    text-shadow: #5c4e38
+    text-shadow:
+        -2px -2px 2px #000,
+         2px -2px 2px #000,
+        -2px  2px 2px #000,
+         2px  2px 2px #000;
 }
 
 /* kuusen kontti */
@@ -49,7 +53,7 @@ h1 {
 
 /* kuusi-kuva */
 .kuusi {
-    width: 60%; /* tästä voi säätää kokoa */
+    width: 50%; /* tästä voi säätää kokoa */
     max-width: 100%; /* maksimileveys */
     height: auto;
     display: block;
@@ -79,4 +83,62 @@ h1 {
 .tahti.nakyva {
   opacity: 1;
   transform: translateY(1px, -20%) scale(1.2);
+}
+
+/* --- Joulukuusen valot --- */
+.jouluvalot {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;                      /* aluksi piilossa */
+    transition: opacity 0.8s ease-in-out;
+    z-index: 4;                      /* kuusen päällä, mutta koristeiden/tähden alla */
+}
+
+.jouluvalot.nakyva {
+    opacity: 1;
+}
+
+.jouluvalot .valo {
+    position: absolute;
+    width: 12px;                     /* isompi koko */
+    height: 12px;
+    border-radius: 50%;
+    /* neutraali valo, jota väritetään alla nth-child-säännöillä */
+    background: radial-gradient(circle, #ffffff 0, #ffd 40%, rgba(255, 255, 255, 0) 70%);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    animation: vilku 1.5s infinite alternate;
+}
+
+/* tasainen värijako: punainen, sininen, keltainen, punainen, sininen... */
+
+.jouluvalot .valo:nth-child(3n+1) {
+    /* punainen */
+    background: radial-gradient(circle, #ffffff 0, #ff4b4b 40%, rgba(255, 75, 75, 0) 70%);
+    box-shadow: 0 0 12px rgba(255, 75, 75, 0.9);
+}
+
+.jouluvalot .valo:nth-child(3n+2) {
+    /* sininen */
+    background: radial-gradient(circle, #ffffff 0, #4b7dff 40%, rgba(75, 125, 255, 0) 70%);
+    box-shadow: 0 0 12px rgba(75, 125, 255, 0.9);
+}
+
+.jouluvalot .valo:nth-child(3n+3) {
+    /* keltainen */
+    background: radial-gradient(circle, #ffffff 0, #ffe45b 40%, rgba(255, 228, 91, 0) 70%);
+    box-shadow: 0 0 12px rgba(255, 228, 91, 0.9);
+}
+
+/* vilkkumis-animaatio */
+
+@keyframes vilku {
+    from {
+        opacity: 0.4;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.1);
+    }
 }
