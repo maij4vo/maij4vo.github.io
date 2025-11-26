@@ -195,7 +195,13 @@
 
     // let paivaAvattu = false;
 
-  
+    function tarkistaKaikkiAvattu() {
+  const kaikkiPiilotettu = [...lahjapaketit].every(p => p.style.display === 'none');
+  if (kaikkiPiilotettu) {
+    const tahti = document.querySelector('.tahti');
+    if (tahti) tahti.style.display = 'block';
+  }
+}
     lahjapaketit.forEach(paketti => {
     paketti.addEventListener('click', () => {
 
@@ -245,25 +251,11 @@
     document.addEventListener('mouseup', () => {
       dragging = false;
       document.body.style.userSelect = '';
-
-      function tarkistaKaikkiAvattu() {
-  const kaikkiPiilotettu = [...lahjapaketit].every(p => p.style.display === 'none');
-  if (kaikkiPiilotettu) {
-    const tahti = document.querySelector('.tahti');
-    if (tahti) tahti.style.display = 'block';
-  }
-}
-
-      tarkistaKaikkiAvattu();
+        tarkistaKaikkiAvattu();
     });
   });
 });
-
-
-
-
  
-
  </script>
 
 </body>
