@@ -283,11 +283,11 @@ if (kuusi) {
 window.addEventListener('resize', positionTahti);
 
     // yhden paketin avaus per päivä
-     const tanaan = new Date();
-     const paiva = tanaan.getDate();
-     const kuukausi = tanaan.getMonth() + 1;
+    // const tanaan = new Date();
+   //  const paiva = tanaan.getDate();
+   //  const kuukausi = tanaan.getMonth() + 1;
 
-    let paivaAvattu = false;
+    // let paivaAvattu = false;
 
   function tarkistaKaikkiAvattu() {
   const kaikkiPiilotettu = [...lahjapaketit].every(p => p.style.display === 'none');
@@ -305,7 +305,7 @@ window.addEventListener('resize', positionTahti);
     paketti.addEventListener('click', () => {
 
     // sallitaan vain joulukuussa ja vain yksi avaus per päivä
-    if (kuukausi !== 12 || paivaAvattu) return;
+    // if (kuukausi !== 12 || paivaAvattu) return;
 
     // piilota klikattu paketti
     paketti.style.display = 'none';
